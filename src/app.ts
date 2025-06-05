@@ -6,6 +6,7 @@ import morgan from "morgan";
 import { config } from "./config";
 import { errorHandler } from "./middleware";
 import ingestRoutes from "./routes/ingest.routes";
+import statusRoutes from "./routes/status.routes";
 import logger from "./utils/logger";
 
 const app = express();
@@ -37,7 +38,8 @@ app.use(
 );
 
 // Routes
-app.use("/api/v1", ingestRoutes);
+app.use("/api/v1/ingest", ingestRoutes);
+app.use("/api/v1/status", statusRoutes);
 
 // Health check endpoint
 app.get("/health", (req, res) => {
