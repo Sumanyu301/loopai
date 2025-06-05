@@ -46,8 +46,9 @@ cp .env.example .env
 ```env
 PORT=3000
 NODE_ENV=development
-ALLOWED_ORIGINS=http://localhost:3000,http://localhost:8080
 ```
+
+Note: CORS is configured to allow all origins by default, so no CORS configuration is needed in the environment variables.
 
 5. Build the project:
 
@@ -207,7 +208,8 @@ src/
 The API implements several security measures:
 
 - Helmet for HTTP headers security
-- CORS with configurable origins
+- CORS configured to allow all origins (\*)
+- Cross-Origin Resource Sharing (CORS) with credentials support
 - Rate limiting to prevent abuse
 - Input validation for all requests
 

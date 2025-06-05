@@ -8,8 +8,9 @@ export const config = {
   rateLimitWindowMs: 15 * 60 * 1000, // 15 minutes
   rateLimitMax: 100, // limit each IP to 100 requests per windowMs
   corsOptions: {
-    origin: process.env.ALLOWED_ORIGINS?.split(",") || "*",
+    origin: "*", // Allow all origins
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true, // Allow credentials
   },
 };
