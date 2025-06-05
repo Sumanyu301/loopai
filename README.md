@@ -2,6 +2,10 @@
 
 A robust TypeScript-based REST API for batch job processing with priority queues and rate limiting.
 
+## Source Code
+
+Repository: https://github.com/sumanyu301/loopai
+
 ## Features
 
 - **Priority Queue System**: Support for HIGH, MEDIUM, and LOW priority job processing
@@ -176,6 +180,17 @@ chmod +x test_api.sh
 ./test_api.sh
 ```
 
+Here's an example of the test output showing the priority queue and batch processing in action:
+
+![Test API Output](test_output.png)
+
+This output demonstrates:
+
+- MEDIUM and HIGH priority requests being processed
+- Batches of 3 IDs being processed
+- Status transitions (yet_to_start → triggered → completed)
+- Real-time status updates for each batch
+
 ## Development
 
 ```bash
@@ -229,3 +244,43 @@ Winston logger is configured to:
 3. Commit your changes
 4. Push to the branch
 5. Create a new Pull Request
+
+## Deployment
+
+When deploying to a cloud platform, use the following commands:
+
+### Build Command
+
+```bash
+npm install && npm run build
+```
+
+### Start Command
+
+```bash
+node dist/app.js
+```
+
+The build command will install all dependencies and compile the TypeScript code into JavaScript in the `dist` directory. The start command will run the compiled application.
+
+Make sure the following environment variables are set in your deployment platform:
+
+```env
+# Server Configuration
+PORT=3000                    # The port your application will run on (usually provided by the hosting platform)
+NODE_ENV=production          # Set to 'production' for deployment
+
+# Rate Limiting Configuration
+RATE_LIMIT_WINDOW_MS=900000  # 15 minutes in milliseconds for global rate limit
+RATE_LIMIT_MAX=100           # Maximum requests per window per IP
+BATCH_RATE_LIMIT_MS=5000     # 5 seconds cooldown between batch processing
+
+# Logging Configuration (Optional)
+LOG_LEVEL=info              # Logging level (debug, info, warn, error)
+```
+
+Notes:
+
+- The application uses CORS with all origins allowed (\*) and credentials enabled, making it suitable for deployment and accessible from any domain
+- If PORT is not set, it defaults to 3000
+- If environment variables are not set, the application will use the default values as specified above
